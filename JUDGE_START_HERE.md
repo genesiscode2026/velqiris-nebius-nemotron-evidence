@@ -10,14 +10,14 @@ An institutional quantitative agent that uses high-throughput NVIDIA Nemotron LL
 
 ---
 
-## 2. Quick Verification (Run in 1 Command)
+## 2. Quick Verification
 
+### A. Local Invariant & Schema Verification (Zero Dependencies, Zero Cost)
 ```bash
 # Run unit tests validating prompt schemas and fail-closed handling
 python3 -m unittest -v test_nemotron_market_agent.py
 ```
-
-### Expected Output:
+Expected Output:
 ```
 test_missing_key_fails_closed ... ok
 test_missing_model_fails_closed ... ok
@@ -26,6 +26,15 @@ test_prompt_uses_supplied_telemetry ... ok
 Ran 3 tests in 0.000s
 OK
 ```
+
+### B. Live Nebius Token Factory Cloud Evaluation (For Judges / Sponsors)
+If you are evaluating this project with your sponsor or judge Nebius API key:
+```bash
+export NEBIUS_API_KEY="<your_nebius_api_key>"
+export NEBIUS_MODEL="nvidia/nemotron-4-340b-instruct"
+python3 nemotron_market_agent.py
+```
+The agent will execute live inference against `https://api.tokenfactory.nebius.com/v1/chat/completions`, validate structured JSON output, and record a cryptographic execution proof file in `nebius_verified_execution_proof.json`.
 
 ---
 
